@@ -1,22 +1,27 @@
 package com.anhanguera.projeto.domain.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Entity(name="user")
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Entity
+@Table(name="users")
 public class User {
 	
 	@Id
-	@Column(name="ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ID;
+	@Column(name="id")
+	private Long id;
 	
 	@NotBlank
 	@Column(name="name")
@@ -30,23 +35,30 @@ public class User {
 	
 	@NotBlank
 	@Column(name="date_create")
-	@Temporal(TemporalType.TIMESTAMP)
 	private String date_create;
 	
-	@NotBlank
-	@Column(name="is_admin")
-	private Boolean IsAdmi;
 	
-	@NotBlank
+	@Column(name="administrador")
+	private Boolean administradoristrador;
+	
+	
 	@Column(name="is_active")
-	private Boolean IsActive;
+	private Boolean active;
 
-	public Long getID() {
-		return ID;
+	public Long getid() {
+		return id;
 	}
 
-	public void setID(Long iD) {
-		ID = iD;
+	public void setid(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -73,21 +85,23 @@ public class User {
 		this.date_create = date_create;
 	}
 
-	public Boolean getIsAdmi() {
-		return IsAdmi;
+	public Boolean getAdministradoristrador() {
+		return administradoristrador;
 	}
 
-	public void setIsAdmi(Boolean isAdmi) {
-		IsAdmi = isAdmi;
+	public void setAdministradoristrador(Boolean administradoristrador) {
+		this.administradoristrador = administradoristrador;
 	}
 
-	public Boolean getIsActive() {
-		return IsActive;
+	public Boolean getActive() {
+		return active;
 	}
 
-	public void setIsActive(Boolean isActive) {
-		IsActive = isActive;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
+
+
 	
 	
 	
