@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity(name="genre")
 public class Genre {
 	
@@ -15,6 +16,7 @@ public class Genre {
 	
 	@Column(name="name")
 	private String name;
+
 
 	public Long getId() {
 		return id;

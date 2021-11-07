@@ -1,10 +1,14 @@
 package com.anhanguera.projeto.domain.model;
 
+import java.util.List;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -23,6 +27,9 @@ public class Actor {
 	@NotBlank
 	@Column(name = "email")
 	private String email;
+	
+	@ManyToMany(mappedBy = "actors")
+	private List<Movie> movies;
 
 	public Long getId() {
 		return id;
@@ -47,5 +54,13 @@ public class Actor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+	}
+	
+	
 
 }

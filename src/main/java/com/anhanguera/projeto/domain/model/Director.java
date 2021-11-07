@@ -23,6 +23,7 @@ public class Director {
 	@NotBlank
 	@Column(name="email")
 	private String email;
+	
 
 	public Long getId() {
 		return id;
@@ -48,6 +49,4 @@ public class Director {
 		this.email = email;
 	}
 	
-	
-
 }
