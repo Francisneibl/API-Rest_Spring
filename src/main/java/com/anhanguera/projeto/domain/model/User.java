@@ -18,7 +18,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "name")
+	@Column(name = "username")
 	private String name;
 	
 	@Column(name = "email")
@@ -28,10 +28,10 @@ public class User {
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date dateCreate;
 	
-	@Column(name = "is_admin")
-	private Boolean isAdmin;
+	@Column(name = "role")
+	private String isAdmin;
 	
-	@Column(name = "is_active")
+	@Column(name = "enabled")
 	private Boolean isActive;
 
 	public Long getId() {
@@ -66,11 +66,11 @@ public class User {
 		this.dateCreate = dataCreate;
 	}
 
-	public Boolean getIsAdmin() {
+	public String getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
+	public void setIsAdmin(String isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 

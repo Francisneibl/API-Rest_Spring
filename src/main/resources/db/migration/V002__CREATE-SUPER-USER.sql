@@ -1,4 +1,3 @@
 INSERT INTO public.users(
-	name, email, date_create, is_admin, is_active)
-	VALUES ('superUser', 'admin@email.com', '2021-11-14', TRUE, TRUE
-);
+	username, email, date_create, enabled, role, password)
+	VALUES ('superuser', 'super@mail.com', '2021-11-14', TRUE, 'ADMIN', '$2a$10$zxvEq8XzYEYtNjbkRsJEbukHeRx3XS6MDXHMu8cNuNsRfZJWwswDy');
