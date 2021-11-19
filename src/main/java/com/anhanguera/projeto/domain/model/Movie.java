@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -50,6 +51,9 @@ public class Movie {
 			joinColumns = @JoinColumn(name = "fk_movie"),
 			inverseJoinColumns = @JoinColumn(name = "fk_actor"))
 	private List<Actor> actors;
+	
+	@OneToMany(mappedBy = "movie")
+	private List<Classification> classifications;
 	
 
 	public Long getId() {
@@ -107,6 +111,14 @@ public class Movie {
 
 	public void setActors(List<Actor> actors) {
 		this.actors = actors;
+	}
+
+	public List<Classification> getClassifications() {
+		return classifications;
+	}
+
+	public void setClassifications(List<Classification> classifications) {
+		this.classifications = classifications;
 	}
 	
 	
