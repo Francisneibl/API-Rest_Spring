@@ -1,6 +1,6 @@
 package com.anhanguera.projeto.domain.model;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="users")
@@ -21,21 +19,26 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "username")
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "username")
+	private String userName;
 	
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "password")
+	private String password;
+	
 	@Column(name = "date_create")
-	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date dateCreate;
+	private OffsetDateTime dateCreate;
 	
 	@Column(name = "role")
-	private String isAdmin;
+	private String role;
 	
 	@Column(name = "enabled")
-	private Boolean isActive;
+	private Boolean enabled;
 	
 	@OneToMany(mappedBy = "classification")
 	private List<Classification> classifications;
@@ -56,6 +59,15 @@ public class User {
 		this.name = name;
 	}
 
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -64,28 +76,47 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getDateCreate() {
+	public OffsetDateTime getDateCreate() {
 		return dateCreate;
 	}
 
-	public void setDateCreate(Date dataCreate) {
+	public void setDateCreate(OffsetDateTime dataCreate) {
 		this.dateCreate = dataCreate;
 	}
 
-	public String getIsAdmin() {
-		return isAdmin;
+
+	public String getPassword() {
+		return password;
 	}
 
-	public void setIsAdmin(String isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+
+	public String getRole() {
+		return role;
 	}
 
-	public Boolean getIsActive() {
-		return isActive;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
+	public Boolean getEnabled() {
+		return enabled;
 	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Classification> getClassifications() {
+		return classifications;
+	}
+
+	public void setClassifications(List<Classification> classifications) {
+		this.classifications = classifications;
+	}
+	
 	
 }

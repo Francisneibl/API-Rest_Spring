@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anhanguera.projeto.domain.filters.MovieFilter;
 import com.anhanguera.projeto.domain.model.Movie;
-import com.anhanguera.projeto.domain.repository.MovieRepository;
+import com.anhanguera.projeto.domain.repository.movie.MovieRepository;
+import com.anhanguera.projeto.domain.service.MovieService;
 
 @RestController
 @RequestMapping("/movie")
@@ -25,9 +27,11 @@ public class MovieController {
 	@Autowired
 	private MovieRepository movieRepository;
 	
+	@Autowired MovieService movieService;
+	
 	@GetMapping
-	public List<Movie> findAll(){
-		return movieRepository.findAll();
+	public List<Movie> findAll(MovieFilter filter){
+		return movieService.listOrderByTitle(filter);
 	}
 	
 	@GetMapping("/{id}")

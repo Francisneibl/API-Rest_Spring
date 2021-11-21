@@ -1,6 +1,5 @@
 package com.anhanguera.projeto.domain.model;
 
-
 import java.util.List;
 	
 import javax.persistence.Column;
@@ -14,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -55,6 +55,8 @@ public class Movie {
 	@OneToMany(mappedBy = "movie")
 	private List<Classification> classifications;
 	
+	@Transient
+	private Double mediaClassificacao;
 
 	public Long getId() {
 		return id;
@@ -120,6 +122,15 @@ public class Movie {
 	public void setClassifications(List<Classification> classifications) {
 		this.classifications = classifications;
 	}
-	
+
+	public Double getMediaClassificacao() {
+		return mediaClassificacao;
+	}
+
+	public void setMediaClassificacao(Double mediaClassificacao) {
+		this.mediaClassificacao = mediaClassificacao;
+	}
+
+
 	
 }

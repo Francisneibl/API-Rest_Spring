@@ -13,9 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import com.anhanguera.projeto.domain.exception.EntidadeNotFoundException;
 
+@ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@Autowired
@@ -43,4 +46,17 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 	
+	
+	@org.springframework.web.bind.annotation.ExceptionHandler(EntidadeNotFoundException.class)
+	public ResponseEntity<Object> handleEntidadeNotFound(EntidadeNotFoundException ex, WebRequest request){
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		
+		Problem problem = new Problem();
+			
+		problem.setStatus(status.value());
+		problem.setDateHour(OffsetDateTime.now());
+		problem.setTitle(ex.getMessage());
+		
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+	}
 }

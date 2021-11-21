@@ -1,4 +1,4 @@
-package com.anhanguera.projeto.domain.repository;
+package com.anhanguera.projeto.domain.repository.classification;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

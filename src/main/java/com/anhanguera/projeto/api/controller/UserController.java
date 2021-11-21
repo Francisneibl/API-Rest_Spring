@@ -15,54 +15,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anhanguera.projeto.api.dto.input.UserInputDTO;
+import com.anhanguera.projeto.api.dto.output.UserOutputDTO;
 import com.anhanguera.projeto.domain.model.User;
-import com.anhanguera.projeto.domain.repository.UserRepository;
+import com.anhanguera.projeto.domain.service.UserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
-	private UserRepository userRepository;
-	
-	
+	private UserService userService;
 	
 	@GetMapping
-	public List<User> list (){
-		return userRepository.findAll();
+	public ResponseEntity<List<UserOutputDTO>> list (){
+		
+		List<User> userList = userService.findAll();
+		if(userList != null && userList.size() > 0) {
+			List<UserOutputDTO> listDto = new UserOutputDTO().convertUserListForDTO(userList);
+			return ResponseEntity.ok(listDto);
+		}
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
-		return userRepository.findById(id)
-				.map(user -> ResponseEntity.ok(user))
+	public ResponseEntity<UserOutputDTO> findById(@PathVariable Long id){
+		return userService.findById(id)
+				.map(user -> ResponseEntity.ok(new UserOutputDTO().convetUserForDTO(user)))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public User add(@RequestBody User user) {
-		return userRepository.save(user);
+	public UserOutputDTO add(@RequestBody UserInputDTO userInput) {
+		User user = userService.save(new UserInputDTO().convertDtoForUser(userInput));
+		return new UserOutputDTO().convetUserForDTO(user);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update (@PathVariable Long id, @RequestBody User user){
-		if(!userRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		user.setId(id);
-		userRepository.save(user);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<UserOutputDTO> update (@PathVariable Long id, @RequestBody UserInputDTO userInput){
+
+		User user = userService.update(id, new UserInputDTO().convertDtoForUser(userInput));
+		return ResponseEntity.ok(new UserOutputDTO().convetUserForDTO(user));
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete (@PathVariable Long id){
-		if(!userRepository.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		userRepository.deleteById(id);
+		userService.deleteLogicalById(id);
 		return ResponseEntity.noContent().build();
 	}
+	
 	
 }

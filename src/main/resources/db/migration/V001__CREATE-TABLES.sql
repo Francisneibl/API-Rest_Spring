@@ -1,9 +1,10 @@
 CREATE TABLE IF NOT EXISTS users (
    id SERIAL PRIMARY KEY,
-   username VARCHAR(255) NOT NULL,
+   name VARCHAR(100) NOT NULL,
+   username VARCHAR(25) NOT NULL,
    password VARCHAR(64) NOT NULL,
-   email VARCHAR(255) NOT NULL,
-   date_create VARCHAR(255) NOT NULL,
+   email VARCHAR(100) NOT NULL,
+   date_create VARCHAR(100) NOT NULL,
    enabled BOOLEAN NOT NULL DEFAULT FALSE,
    role VARCHAR(45) NOT NULL
 );
