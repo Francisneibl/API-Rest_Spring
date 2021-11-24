@@ -21,6 +21,6 @@ Antes de iniciar o projeto é necessário criar um banco no Postgres com o nome 
 
 Nas pasta 'Postman_schema' deste mesmo repositório existe um .json com as requisições utilizadas para testar o projeto.
 
-### Exemplo do uso do Basi Auth no PostMan
+### Exemplo do uso do Basic Auth no PostMan:
 
 ![Alt text](https://github.com/Francisneibl/API-Rest_Spring/blob/master/img/BASIC%20AUTH.PNG)
