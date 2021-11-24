@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anhanguera.projeto.api.dto.input.MovieInputDTO;
 import com.anhanguera.projeto.api.dto.output.MovieOutputDTO;
+import com.anhanguera.projeto.domain.exception.BusinessException;
 import com.anhanguera.projeto.domain.filters.MovieFilter;
 import com.anhanguera.projeto.domain.model.Movie;
 import com.anhanguera.projeto.domain.service.MovieService;
@@ -46,17 +47,17 @@ public class MovieController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Movie add(@Valid @RequestBody MovieInputDTO movieInput) {
+	public MovieOutputDTO add(@Valid @RequestBody MovieInputDTO movieInput) {
 		Movie movie = new MovieInputDTO().convetInputDTOForMovie(movieInput);
-		return movieService.save(movie);
+		return new MovieOutputDTO().convertMovieForDTO(movieService.save(movie));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Movie> update(@PathVariable Long id, @RequestBody Movie movie){
+	public ResponseEntity<Movie> update(@PathVariable Long id,@Valid @RequestBody MovieInputDTO movieInput){
 		if(!movieService.existsById(id)) {
-			return ResponseEntity.notFound().build();
+			throw new BusinessException("Filme não encontrado!");
 		}
-		
+		Movie movie = new MovieInputDTO().convetInputDTOForMovie(movieInput);
 		movie.setId(id);
 		movieService.save(movie);
 		return ResponseEntity.ok(movie);
@@ -64,10 +65,6 @@ public class MovieController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete (@PathVariable Long id){
-		if(!movieService.existsById(id)) {
-			return ResponseEntity.notFound().build();
-		}
-		
 		movieService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
