@@ -2,6 +2,8 @@ package com.anhanguera.projeto.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,15 +48,21 @@ public class UserController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+	@GetMapping("/adminPass/{id}")
+	public ResponseEntity<Void> grandetAdmin(@PathVariable Long id){
+		userService.grandAdminRole(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserOutputDTO add(@RequestBody UserInputDTO userInput) {
+	public UserOutputDTO add(@Valid @RequestBody UserInputDTO userInput) {
 		User user = userService.save(new UserInputDTO().convertDtoForUser(userInput));
 		return new UserOutputDTO().convetUserForDTO(user);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UserOutputDTO> update (@PathVariable Long id, @RequestBody UserInputDTO userInput){
+	public ResponseEntity<UserOutputDTO> update (@PathVariable Long id,@Valid @RequestBody UserInputDTO userInput){
 
 		User user = userService.update(id, new UserInputDTO().convertDtoForUser(userInput));
 		return ResponseEntity.ok(new UserOutputDTO().convetUserForDTO(user));

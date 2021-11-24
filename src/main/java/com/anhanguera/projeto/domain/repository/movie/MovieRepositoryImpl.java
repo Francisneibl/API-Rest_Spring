@@ -26,12 +26,12 @@ public class MovieRepositoryImpl implements MovieRepositoryQuery {
 		StringBuffer sql = new StringBuffer();
 		
 		System.out.println(filter.getTitle());
-		sql.append("SELECT AVG(c.classification) as mediaVoto, m, m.title as title ");
-		sql.append("FROM Movie m, Classification c ");
-		sql.append("WHERE m.id =  c.movie ");
+		sql.append("SELECT AVG(c.grade) as mediaVoto, m ");
+		sql.append("FROM Movie m LEFT JOIN Classification c ");
+		sql.append("ON c.movie = m.id ");
 
 		if(StringUtils.isNotBlank(filter.getTitle())) {
-			sql.append("AND m.title LIKE :title ");
+			sql.append("WHERE m.title LIKE :title ");
 		}
 		
 		if(filter.getGenreID()!= null) {
@@ -41,10 +41,10 @@ public class MovieRepositoryImpl implements MovieRepositoryQuery {
 		if(filter.getDirectorID()!= null) {
 			sql.append("AND m.director = :director ");
 		}
-		
+		/*
 		if(filter.getActorID()!= null) {
 			sql.append("AND m.actors LIKE :actor ");
-		}
+		}*/
 		
 		sql.append("GROUP BY m.id ");
 		
@@ -58,7 +58,7 @@ public class MovieRepositoryImpl implements MovieRepositoryQuery {
 		TypedQuery<Object[]> query = manager.createQuery(sql.toString(), Object[].class);
 		
 		if(StringUtils.isNotBlank(filter.getTitle())) {
-			query.setParameter("title", filter.getTitle());
+			query.setParameter("title", "%"+filter.getTitle()+"%");
 		}
 		
 		if(filter.getGenreID()!= null) {
@@ -86,7 +86,12 @@ public class MovieRepositoryImpl implements MovieRepositoryQuery {
 		for(Object[] row: resultQuery) {
 			Movie movie = new Movie();
 			movie = (Movie) row[1];
-			movie.setMediaClassificacao((Double)row[0]);
+			if(row[0]!= null) {
+				movie.setMediaClassificacao((Double)row[0]);
+			}else {
+				movie.setMediaClassificacao((double) 0);
+			}
+			
 			listMovies.add(movie);
 		}
 		return listMovies;

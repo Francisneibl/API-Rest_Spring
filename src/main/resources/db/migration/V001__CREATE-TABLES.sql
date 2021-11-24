@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS classification (
    id SERIAL PRIMARY KEY,
    fk_user BIGINT,
    fk_movie BIGINT,
-   classification INTEGER NOT NULL
+   grade INTEGER NOT NULL
 );
 
 

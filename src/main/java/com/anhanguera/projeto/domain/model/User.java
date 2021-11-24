@@ -5,29 +5,47 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="users")
 public class User {
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public User(Long id) {
+		super();
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
 	@Column(name = "name")
 	private String name;
 	
+	@NotBlank
 	@Column(name = "username")
 	private String userName;
 	
+	@NotBlank
+	@Email
 	@Column(name = "email")
 	private String email;
 	
+	@NotBlank
 	@Column(name = "password")
 	private String password;
 	
@@ -35,12 +53,13 @@ public class User {
 	private OffsetDateTime dateCreate;
 	
 	@Column(name = "role")
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private Authorities role;
 	
 	@Column(name = "enabled")
 	private Boolean enabled;
 	
-	@OneToMany(mappedBy = "classification")
+	@OneToMany(mappedBy = "grade")
 	private List<Classification> classifications;
 
 	public Long getId() {
@@ -94,11 +113,11 @@ public class User {
 	}
 	
 
-	public String getRole() {
+	public Authorities getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Authorities role) {
 		this.role = role;
 	}
 

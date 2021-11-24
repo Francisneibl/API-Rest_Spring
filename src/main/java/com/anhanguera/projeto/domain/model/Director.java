@@ -24,6 +24,14 @@ public class Director {
 	@Column(name="email")
 	private String email;
 	
+	public Director() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Director(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

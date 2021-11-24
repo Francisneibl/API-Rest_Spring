@@ -20,6 +20,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "movie")
 public class Movie {
+	
+	public Movie() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Movie(Long id) {
+		super();
+		this.id = id;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

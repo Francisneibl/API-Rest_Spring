@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "classification")
@@ -17,9 +18,10 @@ public class Classification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "classification")
-	private Integer classification;
+	@Column(name = "grade")
+	private Integer grade;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "fk_movie")
 	private Movie movie;
@@ -36,16 +38,20 @@ public class Classification {
 		this.id = id;
 	}
 
-	public Integer getClassification() {
-		return classification;
+	public Integer getGrade() {
+		return grade;
 	}
 
-	public void setClassification(Integer classification) {
-		this.classification = classification;
+	public void setGrade(Integer grade) {
+		this.grade = grade;
 	}
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+	}
+
+	public Movie getMovie() {
+		return movie;
 	}
 
 	public User getUser() {

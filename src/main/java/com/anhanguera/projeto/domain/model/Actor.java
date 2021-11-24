@@ -31,6 +31,17 @@ public class Actor {
 	@ManyToMany(mappedBy = "actors")
 	private List<Movie> movies;
 
+	public Actor() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Actor(Long id) {
+		super();
+		this.id = id;
+	}
+
+
 	public Long getId() {
 		return id;
 	}

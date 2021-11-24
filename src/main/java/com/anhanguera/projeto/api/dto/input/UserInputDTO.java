@@ -1,13 +1,23 @@
 package com.anhanguera.projeto.api.dto.input;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import com.anhanguera.projeto.domain.model.User;
 
 public class UserInputDTO {
 
-	private Long id;
+	@NotBlank
 	private String name;
+	
+	@NotBlank
 	private String userName;
+	
+	@NotBlank
+	@Email
 	private String email;
+	
+	@NotBlank
 	private String password;
 	
 	
@@ -20,12 +30,7 @@ public class UserInputDTO {
 		
 		return user;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}

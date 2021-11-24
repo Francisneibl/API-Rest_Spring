@@ -1,8 +1,11 @@
 package com.anhanguera.projeto.api.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anhanguera.projeto.api.dto.input.ClassificationInputDTO;
+import com.anhanguera.projeto.api.dto.output.ClassificationOutputDTO;
 import com.anhanguera.projeto.domain.model.Classification;
 import com.anhanguera.projeto.domain.service.ClassificationService;
 
@@ -21,16 +26,16 @@ public class ClassificationController {
 	private ClassificationService classificationService;
 
 	@GetMapping
-	public Object list() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(principal.toString());
-		return classificationService.findAll();
+	public List<ClassificationOutputDTO> list() {
+		List<Classification> classResult = classificationService.findAll();
+		return new ClassificationOutputDTO().convertClassificationListToDTO(classResult);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Classification toRank(@RequestBody Classification vote) {
-	
-		return classificationService.save(vote);
+	public ClassificationOutputDTO toRank(@Valid @RequestBody ClassificationInputDTO vote) {
+		
+		Classification saved =  classificationService.save(new ClassificationInputDTO().convertDTOForClassification(vote));
+		return new ClassificationOutputDTO().convertClassificationForDTO(saved);
 	}
 }

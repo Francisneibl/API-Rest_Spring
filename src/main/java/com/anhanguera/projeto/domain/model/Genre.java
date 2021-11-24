@@ -16,6 +16,14 @@ public class Genre {
 	
 	@Column(name="name")
 	private String name;
+	
+	public Genre() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Genre(Long id) {
+		this.id = id;
+	}
 
 
 	public Long getId() {

@@ -10,6 +10,6 @@ import com.anhanguera.projeto.domain.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryQuery{
 	
-	 Optional<User> findByUserName(String userName);
+	 Optional<User> findByEmail(String email);
 
 }

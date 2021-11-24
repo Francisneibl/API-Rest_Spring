@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,19 +25,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
 	            .dataSource(dataSource)
 	            .usersByUsernameQuery("select username, password, enabled from users where username=?")
-	            .authoritiesByUsernameQuery("select username, role from users where username=?")
-	        ;
+	            .authoritiesByUsernameQuery("select username, role from users where username=?");
 	    }
-	
 	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/user/").hasRole("ADMIN")
-		.antMatchers("/user").hasRole("ADMIN")
+		http
+		.authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/user/*").hasRole("ADMIN")
+		.antMatchers(HttpMethod.GET, "/user/adminPass/*").hasRole("ADMIN")
+		.antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
+		.antMatchers(HttpMethod.POST,"/movie").hasRole("ADMIN")
+		.antMatchers(HttpMethod.POST, "/classification").hasRole("USER")
         .and()
-        .httpBasic();
+        .httpBasic()
+        .and()
+        .logout().logoutUrl("/logout");
 		
 		http.csrf().disable();
 	}	
