@@ -8,9 +8,9 @@ Usuários comuns podem se cadastrar e listar filmes e classifica-los de 0 a 4, t
 
 Usuários admins podem criar, atualizar e apagar filmes, e também podem desativar qualquer usuário.
 
-## ::book:  INSTRUÇÕES
+## :book:  INSTRUÇÕES
 
-Para autenticações de usuários foi utilizado a tecnica de Basi Auth do Spring Security. Esta autenticação pode ser facilmente executado pelo Postman. O projeto inicia com dois usuários, um deles com permissão de admin e outro como usuário comum. 
+Para autenticações de usuários foi utilizado a tecnica de Basic Auth do Spring Security. Esta autenticação pode ser facilmente executado pelo Postman. O projeto inicia com dois usuários, um deles com permissão de admin e outro como usuário comum. 
 
 | USERNAME  | PASSWORD | ROLE  |
 | --------- | -------- | ----- |
