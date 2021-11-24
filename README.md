@@ -18,3 +18,6 @@ Para autenticações de usuários foi utilizado a tecnica de Basic Auth do Sprin
 | user      | 12345    | USER  |
 
 Antes de iniciar o projeto é necessário criar um banco no Postgres com o nome de 'apimovies', o restante das tabelas serão criadas e populadas pelo **Flyway**.
+
+Nas pasta 'Postman_schema' deste mesmo repositório existe um .json com as requisições utilizadas para testar o projeto.
+
